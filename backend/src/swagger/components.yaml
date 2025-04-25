@@ -1,0 +1,33 @@
+components:
+  schemas:
+    Policy:
+      type: object
+      properties:
+        id:
+          type: string
+        provider:
+          type: string
+        insuranceType:
+          type: string
+        status:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date
+        customerId:
+          type: string
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date

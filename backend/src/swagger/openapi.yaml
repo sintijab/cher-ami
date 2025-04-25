@@ -1,0 +1,224 @@
+openapi: 3.0.0
+info:
+  title: Insurance API
+  version: 1.0.0
+  description: Insurance policies and customers API
+tags:
+  - name: Policies
+    description: Endpoints related to insurance policies
+  - name: Customers
+    description: Endpoints related to customers
+paths:
+  /policies:
+    get:
+      tags:
+        - Policies
+      summary: Get all policies
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: Filter policies by provider or customer name
+      responses:
+        200:
+          description: A list of policies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+
+    post:
+      tags:
+        - Policies
+      summary: Create a new policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                policy:
+                  $ref: '#/components/schemas/Policy'
+                customer:
+                  $ref: '#/components/schemas/Customer'
+      responses:
+        201:
+          description: Policy created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+
+  /policies/{id}:
+    put:
+      tags:
+        - Policies
+      summary: Update a policy
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Policy'
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        404:
+          description: Not found
+
+    delete:
+      summary: Delete a policy
+      tags:
+        - Policies
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Deleted
+        404:
+          description: Not found
+
+  /customers:
+    get:
+      tags:
+        - Customers
+      summary: Get all customers
+      description: Retrieve a list of customers, optionally filtered by name or policy ID.
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filter by first or last name
+        - in: query
+          name: policyId
+          schema:
+            type: string
+          description: Filter by policy ID
+      responses:
+        200:
+          description: A list of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        500:
+          description: Server error
+
+    post:
+      summary: Create a new customer
+      tags:
+        - Customers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        200:
+          description: Created customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        500:
+          description: Server error
+
+  /customers/{id}:
+    put:
+      tags:
+        - Customers
+      summary: Update a customer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        200:
+          description: Updated customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        500:
+          description: Server error
+
+    delete:
+      tags:
+        - Customers
+      summary: Delete a customer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Customer deleted
+        500:
+          description: Server error
+
+components:
+  schemas:
+    Policy:
+      type: object
+      properties:
+        id:
+          type: string
+        provider:
+          type: string
+        insuranceType:
+          type: string
+        status:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date
+        customerId:
+          type: string
+
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
