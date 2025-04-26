@@ -15,10 +15,10 @@ export default defineConfig({
     } as AliasOptions,
   },
   preview: {
-    port: 3000,
+    port: 3001,
    },
    server: {
-    port: 3000,
+    port: 3001,
     host: true,
     watch: {
       usePolling: true,
