@@ -9,6 +9,7 @@ interface Customer {
   firstName: string;
   id: string;
   lastName: string;
+  email: string;
 }
 
 export interface Policy {
@@ -19,4 +20,6 @@ export interface Policy {
   provider: Provider;
   startDate: Date;
   status: PolicyStatus;
+  price: string;
+  page?: number;
 }

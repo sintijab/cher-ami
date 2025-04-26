@@ -12,4 +12,5 @@ export const policySchema = z.object({
   endDate: z.string().refine(isDateTime, {
     message: "Invalid end date. Must be a valid date-time string (e.g., '2023-04-01T00:00:00Z')",
   }).optional(),
+  price: z.string().min(1),
 });

@@ -24,6 +24,11 @@ export async function getPolicies(req: Request, res: Response) {
             lastName: { contains: search as string, mode: 'insensitive' },
           },
         },
+        {
+          customer: {
+            email: { contains: search as string, mode: 'insensitive' },
+          },
+        },
       ],
     }
     : {};
@@ -38,12 +43,14 @@ export async function getPolicies(req: Request, res: Response) {
       insuranceType: true,
       status: true,
       startDate: true,
+      price: true,
       endDate: true,
       customer: {
         select: {
           id: true,
           firstName: true,
           lastName: true,
+          email: true,
           dateOfBirth: true,
         },
       },
@@ -57,7 +64,6 @@ router.get('/', getPolicies);
 
 router.post('/', validateData(policyCreationSchema), async (req, res) => {
   const { policy, customer } = req.body;
-   console.log(req.body)
 
   try {
     let customerRecord;
@@ -68,12 +74,14 @@ router.post('/', validateData(policyCreationSchema), async (req, res) => {
         update: {
           firstName: customer.firstName,
           lastName: customer.lastName,
+          email: customer.email,
           dateOfBirth: new Date(customer.dateOfBirth),
         },
         create: {
           id: customer.id,
           firstName: customer.firstName,
           lastName: customer.lastName,
+          email: customer.email,
           dateOfBirth: new Date(customer.dateOfBirth),
         },
       });
@@ -83,6 +91,7 @@ router.post('/', validateData(policyCreationSchema), async (req, res) => {
           id: uuidv4(),
           firstName: customer.firstName,
           lastName: customer.lastName,
+          email: customer.email,
           dateOfBirth: new Date(customer.dateOfBirth),
         },
       });

@@ -29,6 +29,7 @@ model Customer {
   lastName      String      @db.VarChar(255)
   dateOfBirth   DateTime
   policies      Policy[]
+  email         String?
 }
 
 model Policy {
@@ -41,4 +42,5 @@ model Policy {
   startDate     DateTime
   endDate       DateTime?
   createdAt     DateTime      @default(now())
+  price         Decimal?
 }

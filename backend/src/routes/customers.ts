@@ -20,6 +20,7 @@ export async function getCustomers(req: Request, res: Response) {
         where.OR = [
           { firstName: { contains: parts[0], mode: 'insensitive' } },
           { lastName: { contains: parts[0], mode: 'insensitive' } },
+          { email: { contains: parts[0], mode: 'insensitive' } },
         ];
       }
     }

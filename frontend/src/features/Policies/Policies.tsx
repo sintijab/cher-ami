@@ -1,30 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { Policy } from './Policies.model';
+import { Table } from '@/components/Table';
+import { Button } from '@/components/Button/Button';
+import { HeaderH4 } from '@/components/Header/Header';
+import { Search } from '@/components/Search/Search';
+import { Chip } from '@/components/Chip/Chip';
+import { PoliciesContext } from './PoliciesContext';
+import { Pagination } from '@/components/Pagination';
+import { fetchData } from '../HttpClient/Requests';
 
-import { Header } from 'components/Header';
-import { Table } from 'components/Table';
-
-export const Policies = () => {
+export const Policies = ({ storePolicies }: { storePolicies?: (data: Policy[]) => void }) => {
   const [error, setError] = useState<string | undefined>();
-  const [policies, setPolicies] = useState<Policy[] | undefined>();
+  const [policies, setPolicies] = useState<Policy[] | null>([]);
+  const storedPolicies = useContext(PoliciesContext);
+
+  const totalRecords = policies?.length || storedPolicies?.length || 0;
+  const PAGE_SIZE = 5;
+
+  const fetchPolicies = async () => {
+    const data = await fetchData('http://localhost:4000/policies');
+    setPolicies(data);
+    storePolicies?.(data);
+  };
+  
 
   useEffect(() => {
-    const fetchPolicies = async () => {
-      await fetch('http://localhost:4000/policies')
-        .then((r) => r.json())
-        .then((data) => setPolicies(data))
-        .catch((e) => setError(e.message));
-    };
+    if (!storedPolicies) {
 
-    fetchPolicies();
+      fetchPolicies();
 
-    // Component clean-up
-    return () => {
-      setPolicies([]);
-      setError('');
-    };
+      // Component clean-up
+      return () => {
+        setPolicies([]);
+        setError('');
+      };
+    }
   }, []);
+
 
   if (!error && !policies) return <p>Loading...</p>;
 
@@ -32,9 +45,19 @@ export const Policies = () => {
     return <p className="text-red-500">Error loading policies: {error}</p>;
 
   return (
-    <div>
-      <Header>Policies</Header>
-      <Table policies={policies} />
+    <div className="max-w-screen-xl m-auto">
+      <Search categories={['All categories', 'Name', 'Email', 'Provider', 'Type', 'Price', 'Status']} />
+      <div className="flex mt-1 ml-8">
+        <Chip>Active multi-policy holders</Chip>
+        <Chip>Active single-policy holders</Chip>
+        <Chip>Issued more than 2 weeks ago and not active</Chip>
+        <Chip>Cancellations older than a year</Chip>
+      </div>
+      <HeaderH4>Select policies for bulk actions</HeaderH4>
+      <Button>Bulk upload</Button>
+      <Button>Bulk edit</Button>
+      <Button>Bulk delete</Button>
+      <Table policies={policies?.length ? policies : storedPolicies} />
     </div>
   );
 };
