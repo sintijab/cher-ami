@@ -22,7 +22,7 @@ export const policyMockResponse = [
 ];
 
 export const policyMockHandler = rest.get(
-  'http://localhost:4000/policies',
+  'https://cher-ami.onrender.com/policies',
   (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(policyMockResponse));
   }

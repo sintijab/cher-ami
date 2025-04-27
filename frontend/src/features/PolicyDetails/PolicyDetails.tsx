@@ -22,7 +22,7 @@ export const PolicyDetails = () => {
       }
     }
     if (!isEmpty(updatedPolicy)) {
-       fetchData(`http://localhost:4000/policies/${policy.id}`, {
+       fetchData(`https://cher-ami.onrender.com/policies/${policy?.id}`, {
         method: "PUT",
         data: updatedPolicy,
       });

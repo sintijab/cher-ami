@@ -20,7 +20,7 @@ export const CustomerDetails = () => {
       }
     }
     if (!isEmpty(updated)) {
-      fetchData(`http://localhost:4000/customers/${policy.customer.id}`, {
+      fetchData(`https://cher-ami.onrender.com/customers/${policy?.customer?.id}`, {
         method: "PUT",
         data: updated,
       });

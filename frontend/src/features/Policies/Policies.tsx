@@ -7,7 +7,6 @@ import { HeaderH4 } from '@/components/Header/Header';
 import { Search } from '@/components/Search/Search';
 import { Chip } from '@/components/Chip/Chip';
 import { PoliciesContext } from './PoliciesContext';
-import { Pagination } from '@/components/Pagination';
 import { fetchData } from '../HttpClient/Requests';
 
 export const Policies = ({ storePolicies }: { storePolicies?: (data: Policy[]) => void }) => {
@@ -15,11 +14,8 @@ export const Policies = ({ storePolicies }: { storePolicies?: (data: Policy[]) =
   const [policies, setPolicies] = useState<Policy[] | null>([]);
   const storedPolicies = useContext(PoliciesContext);
 
-  const totalRecords = policies?.length || storedPolicies?.length || 0;
-  const PAGE_SIZE = 5;
-
   const fetchPolicies = async () => {
-    const data = await fetchData('http://localhost:4000/policies');
+    const data = await fetchData('https://cher-ami.onrender.com/policies');
     setPolicies(data);
     storePolicies?.(data);
   };
