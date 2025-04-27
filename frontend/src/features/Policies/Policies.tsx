@@ -8,6 +8,7 @@ import { Search } from '@/components/Search/Search';
 import { Chip } from '@/components/Chip/Chip';
 import { PoliciesContext } from './PoliciesContext';
 import { fetchData } from '../HttpClient/Requests';
+import { Link } from 'wouter';
 
 export const Policies = ({ storePolicies }: { storePolicies?: (data: Policy[]) => void }) => {
   const [error, setError] = useState<string | undefined>();
@@ -44,7 +45,7 @@ export const Policies = ({ storePolicies }: { storePolicies?: (data: Policy[]) =
     <div className="max-w-screen-xl m-auto">
       <Search categories={['All categories', 'Name', 'Email', 'Provider', 'Type', 'Price', 'Status']} />
       <div className="flex mt-1 ml-8">
-        <Chip>Active multi-policy holders</Chip>
+        <a href="http://localhost:3000" target="_blank"><Chip>Active multi-policy holders</Chip></a>
         <Chip>Active single-policy holders</Chip>
         <Chip>Issued more than 2 weeks ago and not active</Chip>
         <Chip>Cancellations older than a year</Chip>
