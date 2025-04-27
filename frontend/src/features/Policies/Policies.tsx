@@ -8,7 +8,6 @@ import { Search } from '@/components/Search/Search';
 import { Chip } from '@/components/Chip/Chip';
 import { PoliciesContext } from './PoliciesContext';
 import { fetchData } from '../HttpClient/Requests';
-import { Link } from 'wouter';
 
 export const Policies = ({ storePolicies }: { storePolicies?: (data: Policy[]) => void }) => {
   const [error, setError] = useState<string | undefined>();
