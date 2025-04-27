@@ -33,7 +33,7 @@
     "zod": "^3.24.3"
   },
   "scripts": {
-    "start": "nodemon",
+    "start": "yarn prisma generate && yarn prisma migrate dev && yarn prisma db seed && nodemon",
     "test": "jest --config ./jest.config.js --detectOpenHandles",
     "test:e2e": "jest --config ./test/jest-e2e.json --detectOpenHandles"
   },
