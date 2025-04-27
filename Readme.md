@@ -1,5 +1,7 @@
 # Cher Ami Insurance
 
+The application is deployed here [https://cher-ami-insurance.onrender.com/](https://cher-ami-insurance.onrender.com/)
+
 ## Getting started
 
 1. Make sure you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your machine
