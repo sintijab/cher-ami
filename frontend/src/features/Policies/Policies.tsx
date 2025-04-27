@@ -48,7 +48,7 @@ export const Policies = ({ storePolicies }: { storePolicies?: (data: Policy[]) =
         <Chip>Active single-policy holders</Chip>
         <Chip>Issued more than 2 weeks ago and not active</Chip>
         <Chip>Cancellations older than a year</Chip>
-        <Chip>Policy holders with low insurance risk groups</Chip>
+        <Chip>Low insurance risk groups</Chip>
 
       </div>
       <HeaderH4>Select policies for bulk actions</HeaderH4>
